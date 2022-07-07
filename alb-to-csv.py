@@ -3,22 +3,9 @@ import csv
 import time
 from datetime import datetime
 
-# print(
-# '''
-#  ________  ________  ___      ___             ________  ________  ________   ___      ___ _______   ________  _________  ________  ________     
-# |\   ____\|\   ____\|\  \    /  /|           |\   ____\|\   __  \|\   ___  \|\  \    /  /|\  ___ \ |\   __  \|\___   ___\\   __  \|\   __  \    
-# \ \  \___|\ \  \___|\ \  \  /  / /___________\ \  \___|\ \  \|\  \ \  \\ \  \ \  \  /  / | \   __/|\ \  \|\  \|___ \  \_\ \  \|\  \ \  \|\  \   
-#  \ \  \    \ \_____  \ \  \/  / /\____________\ \  \    \ \  \\\  \ \  \\ \  \ \  \/  / / \ \  \_|/_\ \   _  _\   \ \  \ \ \  \\\  \ \   _  _\  
-#   \ \  \____\|____|\  \ \    / /\|____________|\ \  \____\ \  \\\  \ \  \\ \  \ \    / /   \ \  \_|\ \ \  \\  \|   \ \  \ \ \  \\\  \ \  \\  \| 
-#    \ \_______\____\_\  \ \__/ /                 \ \_______\ \_______\ \__\\ \__\ \__/ /     \ \_______\ \__\\ _\    \ \__\ \ \_______\ \__\\ _\ 
-#     \|_______|\_________\|__|/                   \|_______|\|_______|\|__| \|__|\|__|/       \|_______|\|__|\|__|    \|__|  \|_______|\|__|\|__|
-#              \|_________|                                                                                                                                                                                                                                                                                                                                                                                                                      
-# '''
-# )
-
 start_time = time.time()
 current_date = datetime.strftime(datetime.now(), "%d-%m-%Y")
-current_date_time = datetime.strftime(datetime.now(), "%d-%m-%Y %X")
+current_date_time = datetime.now().strftime("%y%m%d_%H%M%S")
 
 base_dir = os.getcwd()
 
@@ -55,11 +42,24 @@ csv_fields = [
                 'classification_reason'
             ]
 csv_file_dir = base_dir + '/csv/'
-csv_file_name = 'alblog-' + current_date + '.csv'
+csv_file_name = 'alblog-' + current_date_time + '.csv'
 csv_rows = []
 
 log_file_dir = base_dir + '/alb-logs/'
+
+if os.path.isdir(log_file_dir) == False:
+    print('''{} does not exist.
+creating {} directory.'''.format(log_file_dir, log_file_dir)
+)
+    os.mkdir(log_file_dir)
+
 log_file_list = os.listdir(log_file_dir)
+
+if len(log_file_list) <= 0:
+    print('''No log files are present {} for processing.
+exiting the script!'''.format(log_file_dir))
+    print('Please place all the load balancer log files into {} directory.'.format(log_file_dir))
+    exit()
 
 if os.path.isdir(csv_file_dir) == False:
     print(

@@ -23,8 +23,8 @@ creating {} directory.'''.format(log_file_dir, log_file_dir)
 log_file_list = os.listdir(log_file_dir)
 
 if len(log_file_list) <= 0:
-    print('''No log files are present {} for processing.
-exiting the script!'''.format(apache_log_dir))
+    print('''No log files are present in {} directory for processing.
+exiting the script!'''.format(log_file_dir))
     print('Please place all the load balancer log files into {} directory.'.format(log_file_dir))
     exit()
 
