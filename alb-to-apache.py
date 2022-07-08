@@ -10,29 +10,29 @@ current_date_time = datetime.now().strftime("%y%m%d_%H%M%S")
 base_dir = os.getcwd()
 
 apache_log_dir = base_dir + '/apache-logs/'
-apache_log_file = apache_log_dir + 'ezdata_{}.log'.format(current_date_time)
+apache_log_file = apache_log_dir + f'ezdata_{current_date_time}.log'
 
 log_file_dir = base_dir + '/alb-logs/'
 
 if os.path.isdir(log_file_dir) == False:
-    print('''{} does not exist.
-creating {} directory.'''.format(log_file_dir, log_file_dir)
+    print(f'''{log_file_dir} does not exist.
+creating {log_file_dir} directory.'''
 )
     os.mkdir(log_file_dir)
 
 log_file_list = os.listdir(log_file_dir)
 
 if len(log_file_list) <= 0:
-    print('''No log files are present in {} directory for processing.
-exiting the script!'''.format(log_file_dir))
-    print('Please place all the load balancer log files into {} directory.'.format(log_file_dir))
+    print(f'''No log files are present in {log_file_dir} directory for processing.
+exiting the script!''')
+    print(f'Please place all the load balancer log files into {log_file_dir} directory.')
     exit()
 
-print('Total numbers of log files present for processing is {} files'.format(len(log_file_list)))
+print(f'Total numbers of log files present for processing is {log_file_list} files')
 
 if os.path.isdir(apache_log_dir) == False:
-    print('''{} does not exist.
-creating {} directory.'''.format(apache_log_dir, apache_log_dir)
+    print(f'''{apache_log_dir} does not exist.
+creating {apache_log_dir} directory.'''
 )
     os.mkdir(apache_log_dir)
 
@@ -107,5 +107,5 @@ for file in log_file_list:
 end_time = time.time()
 total_time = '{0:.3f}'.format(end_time - start_time)
 
-print('''all logs processed and saved in {} file.
-Total time taken to process the log files is {} sec.'''.format(apache_log_file, total_time))
+print(f'''all logs processed and saved in {apache_log_file} file.
+Total time taken to process the log files is {total_time} sec.''')

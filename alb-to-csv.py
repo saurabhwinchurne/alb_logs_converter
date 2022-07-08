@@ -42,35 +42,35 @@ csv_fields = [
                 'classification_reason'
             ]
 csv_file_dir = base_dir + '/csv/'
-csv_file_name = 'alblog-' + current_date_time + '.csv'
+csv_file_name = 'alblog_' + current_date_time + '.csv'
 csv_rows = []
 
 log_file_dir = base_dir + '/alb-logs/'
 
 if os.path.isdir(log_file_dir) == False:
-    print('''{} does not exist.
-creating {} directory.'''.format(log_file_dir, log_file_dir)
+    print(f'''{log_file_dir} does not exist.
+creating {log_file_dir} directory.'''
 )
     os.mkdir(log_file_dir)
 
 log_file_list = os.listdir(log_file_dir)
 
 if len(log_file_list) <= 0:
-    print('''No log files are present {} for processing.
-exiting the script!'''.format(log_file_dir))
-    print('Please place all the load balancer log files into {} directory.'.format(log_file_dir))
+    print(f'''No log files are present {log_file_dir} for processing.
+exiting the script!''')
+    print(f'Please place all the load balancer log files into {log_file_dir} directory.')
     exit()
 
 if os.path.isdir(csv_file_dir) == False:
     print(
+f'''
+{csv_file_dir} does not exist.
+creating {csv_file_dir} directory.
 '''
-{} does not exist.
-creating {} directory.
-'''.format(csv_file_dir, csv_file_dir)
 )
     os.mkdir(csv_file_dir)
 
-print('Total numbers of log files present for processing is {} files'.format(len(log_file_list)))
+print(f'Total numbers of log files present for processing is {len(log_file_list)} files')
 
 with open((csv_file_dir + csv_file_name), 'w') as csvfile:
         csv_writer = csv.writer(csvfile)
@@ -98,7 +98,7 @@ end_time = time.time()
 total_time = '{0:.3f}'.format(end_time - start_time)          
 
 print(
-'''all logs processed and saved in {}{} file.
-Total time taken to process the log files is {} sec. 
-'''.format(csv_file_dir, csv_file_name, total_time)
+f'''all logs processed and saved in {csv_file_dir}{csv_file_name} file.
+Total time taken to process the log files is {total_time} sec. 
+'''
 )
